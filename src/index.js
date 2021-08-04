@@ -37,8 +37,31 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+function parseString(str) {
+    const mapObject = {
+        '00': '',
+        '10': '.',
+        '11': '-',
+    };
+    const arr = str.split(/(.{10})/g).filter(Boolean);
+    for (let index = 0; index < arr.length; index++) {
+        const element = arr[index];
+        const parsedChar = element.replace(/(?:00|10|11)/g, matched => mapObject[matched]);
+        arr[index] = parsedChar.length === 10 ? ' ' : parsedChar;
+    }
+
+    return arr;
+}
+
 function decode(expr) {
-    // write your solution here
+    let result = '';
+    const parsedString = parseString(expr);
+
+    for (const char of parsedString) {
+        result += MORSE_TABLE?.[char] ?? ' ';
+    }
+
+    return result;
 }
 
 module.exports = {
