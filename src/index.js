@@ -58,7 +58,7 @@ function decode(expr) {
     const parsedString = parseString(expr);
 
     for (const char of parsedString) {
-        result += MORSE_TABLE?.[char] ?? ' ';
+        result += typeof(MORSE_TABLE[char]) !== 'undefined' ? MORSE_TABLE[char] : ' ';
     }
 
     return result;
